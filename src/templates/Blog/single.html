@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{% if post.meta_title %} {{post.meta_title}} {%else%} {{post.title}} {% endif %}</title>
+<meta name="description" content="{% if post.meta_description %} {{post.meta_description}} {%else%} {{post.content|truncatechars:200}} {% endif %}"> 
+{% endblock head %}
+
+
+{% block content %}
+
+<div class="container my-3">
+    <div class="row py-3">
+        <div class="col-md-9">
+            <h1 class="h3"> {{post.title}} </h1>
+            <!-- Breadcrumb -->
+              <hr>
+              <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a class="text-decoration-none text-primary" href="{% url 'home' %}">Home</a></li>
+                  <li class="breadcrumb-item"><a class="text-decoration-none text-primary" href="{{ post.category.title }}">{{ post.category.title }}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+                  
+                </ol>
+              </nav>
+              <hr>
+
+              <!-- featured image --> 
+              <img src="{{ post.image.url }}" class="rounded" alt="{{post.title}}">
+
+              <div class="my-3">
+                {{post.content}}
+              </div>
+
+              <p class="py-5">Last updated: {{post.updated}}</p>
+
+        </div>
+        <div class="col-md-3">Side Bar</div>
+    </div>
+
+
+</div>
+
+{% endblock content %}
